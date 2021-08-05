@@ -40,13 +40,13 @@ C:\Users\Administrator\AppData\Local\Google
 # Vue 版本中使用 vxg player
 使用的文件是一样的，但需要将文件分开处理
 因为目前插件是适用于浏览器版本的，不适用于 npm 版，所以需要将 js、css 文件在 `public/index.html` 中插入
+将插件文件夹放于 `index.html` 同级目录下，也就是 `public` 下
 
 ```html
 <link rel="stylesheet" href="./vxg-plugin/vxgplayer-1.8.40.min.css">
 <script src="./vxg-plugin/vxgplayer-1.8.40.min.js"></script>
 ```
-
-将 `pnacl` 文件放于 `vue` 同级目录中，用于标签内引用，注意使用 `./` 引用文件
+注意使用 `./` 引用文件
 
 ```html
 <div class="vxgplayer" :id="`rtsp_player_${index}`"
