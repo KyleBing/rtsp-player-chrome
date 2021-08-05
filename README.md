@@ -18,6 +18,9 @@ C:\Users\Administrator\AppData\Local\Google
 ![screen2021_0803_1730](https://user-images.githubusercontent.com/12215982/127995792-e12ff156-4d01-4eb9-980f-f8a3877f5fc9.jpg)
 
 
+或者为了避免覆盖自己在用的 Chrome 版本，可以直接使用绿色版，使用方法在这个链接里有说明：
+> [https://blog.csdn.net/KimBing/article/details/119415005](https://blog.csdn.net/KimBing/article/details/119415005)
+
 
 ## 二、安装 Chrome 插件
 1. 解压项目目录中的 `/chrome-extension/VXG-Media-Player_v1.8.42.rar` 文件
@@ -32,3 +35,25 @@ C:\Users\Administrator\AppData\Local\Google
 将项目文件放到 `nginx` 或 `apache` 中访问该目录即可
 
 ![screen2021_0803_1704](https://user-images.githubusercontent.com/12215982/127995785-2767850c-4ef7-4556-a82b-ca8e6a10885d.jpg)
+
+
+# Vue 版本中使用 vxg player
+使用的文件是一样的，但需要将文件分开处理
+因为目前插件是适用于浏览器版本的，不适用于 npm 版，所以需要将 js、css 文件在 `public/index.html` 中插入
+
+```html
+<link rel="stylesheet" href="./vxg-plugin/vxgplayer-1.8.40.min.css">
+<script src="./vxg-plugin/vxgplayer-1.8.40.min.js"></script>
+```
+
+将 `pnacl` 文件放于 `vue` 同级目录中，用于标签内引用，注意使用 `./` 引用文件
+
+```html
+<div class="vxgplayer" :id="`rtsp_player_${index}`"
+     url="rtsp://admin:DEVdev123@192.168.30.235:554/h264/ch1/main/av_stream" autostart controls
+     avsync nmf-src="./vxg-plugin/pnacl/Release/media_player.nmf" nmf-path="media_player.nmf"
+     width="720" height="405">
+</div>
+```
+
+这样就可以使用了，在页面载入完成后停留一会，再获取 vxgplayer 的 id 对其进行操作。
